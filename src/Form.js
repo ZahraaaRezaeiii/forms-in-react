@@ -1,8 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolers } from '@/hookform/resolvers/yup'
 
 export const Form = () => {
-    const {register, handleSubmit} = useForm()
+    const validate = yup.object().shape({
+        name : yup.string().required(),
+        family : yup.string().required(),
+        age : yup.number().positive().min(5).max(18).required(),
+        email : yup.string().email().required(),
+        password: yup.string().min(6).max(8).required(),
+        confirmPassword : yup.string().oneOf([yup.ref("password")]).required()
+
+    })
+    const {register, handleSubmit} = useForm({resolver: yupResolers(validate)})
 
     const onFormSubmit = (data) => {
         console.log(data)
