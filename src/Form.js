@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Form = () => {
     const validate = yup.object().shape({
@@ -13,10 +15,20 @@ export const Form = () => {
         confirmPassword : yup.string().oneOf([yup.ref("password")], 'پسورد یکسان نیست.').required()
 
     })
-    const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(validate)})
+    const {register, handleSubmit, formState:{errors}, reset} = useForm({resolver: yupResolver(validate)})
 
     const onFormSubmit = (data) => {
-        console.log(data)
+        console.log(data);
+        toast.success('فرم با موفقیت ارسال شد!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        reset();
     }
 
     return (
@@ -62,6 +74,7 @@ export const Form = () => {
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
         </form>
+        <ToastContainer />
     </div>
     );
 
