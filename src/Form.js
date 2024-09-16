@@ -19,7 +19,7 @@ export const Form = () => {
 
     const onFormSubmit = (data) => {
         console.log(data);
-        toast.success('فرم با موفقیت ارسال شد!', {
+        toast.success('!فرم با موفقیت ارسال شد', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -32,8 +32,10 @@ export const Form = () => {
     }
 
     return (
-    <div className="container mt-5">
-        <form className="row g-3 needs-validation" novalidate onSubmit={handleSubmit(onFormSubmit)}>
+    <div className="container mt-5 mb-5">
+        <div class="card">
+            <div class="card-body">
+            <form className="row g-3 needs-validation" novalidate onSubmit={handleSubmit(onFormSubmit)}>
             <div className="mb-3 col-md-6">
                 <label for="exampleInputName1" className="form-label">Name</label>
                 <input type="text" className="form-control" id="exampleInputName1" aria-describedby="nameHelp" {...register("name")}/>
@@ -66,7 +68,7 @@ export const Form = () => {
                 <input type="password" className="form-control" id="exampleInputConfirmPassword1" {...register("confirmPassword")}/>
                 <div className="text-danger"> {errors.confirmPassword?.message} </div>
             </div>
-            <div className="mb-3 form-check col-md-6">
+            <div className="ms-2 mb-3 form-check col-md-6">
                 <input type="checkbox" className="form-check-input" id="exampleCheck1" {...register("checkOut")}/>
                 <label className="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
@@ -74,6 +76,8 @@ export const Form = () => {
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
         </form>
+            </div>
+        </div>
         <ToastContainer />
     </div>
     );
